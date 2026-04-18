@@ -1,0 +1,75 @@
+[
+  {
+    "id": 0,
+    "author": "user",
+    "payload": {
+      "type": "text",
+      "text": "Add a lovely dashboard message with premium romantic animation to the Lovia website.\n📝 TEXT (MUST MATCH EXACTLY – DO NOT CHANGE WORDING)\nCopy code\n\nHey love creator 💕\nYour feelings deserve more than just words.\nLet’s turn them into a beautiful memory.",
+      "files": [],
+      "fileUploads": [],
+      "cMarkNode": {}
+    },
+    "createdTimestamp": {
+      "seconds": 1770111079,
+      "nanos": 237000000
+    }
+  },
+  {
+    "id": 1,
+    "author": "model",
+    "payload": {
+      "type": "thinking",
+      "text": "**Crafting Lovia's Message**\n\nI'm focusing on crafting a compelling message for Lovia's dashboard, aiming for a premium romantic feel with animation. The initial message draft, \"Hey love creator 💕, Your feelings deserve more than just words. Let’s turn them into,\" is a starting point, and I'm considering how to best present this sentiment with animation.\n\n\n**Analyzing App Structure**\n\nI've been analyzing the app structure, specifically `Home.tsx`, `App.tsx`, and `FloatingHearts.tsx`. My current plan focuses on adding a new \"Dashboard Welcome\" section in `App.tsx`, above the projects list, to house the message and animation. I'll utilize `framer-motion` to create a premium romantic animation, possibly a shimmering or fading text effect, and I will create a new component `DashboardMessage.tsx` or integrate it into `Home.tsx`.\n\n\n**Refining Location & Design**\n\nI've decided to refine the location, aiming to integrate the message into `Home.tsx` as a prominent \"Welcome\" section. This will be above the \"Choose a Day\" section, creating a mood-setting entry. I am focusing on the animation to create a good effect, such as staggered text reveal, a floating background glow, and subtle heart sparkles. I'll need a container for the animation. I'm focusing on elegant, soft typography for the text itself.\n\n\n**Updating Component Focus**\n\nI'm now zeroing in on a staggered entrance animation using `framer-motion` and some custom CSS for a premium look, employing gradients and text shadows. I've finalized the text: \"Hey love creator 💕\", \"Your feelings deserve more than just words.\", and \"Let’s turn them into a beautiful memory.\" I've decided to refine the component location to the top of `Home.tsx`, and I'll create the `DashboardWelcome` component within `Home.tsx`.\n\n\n",
+      "cMarkNode": {}
+    },
+    "createdTimestamp": {
+      "seconds": 1770111079,
+      "nanos": 237000000
+    },
+    "doneTimestamp": {
+      "seconds": 1770111138,
+      "nanos": 486000000
+    }
+  },
+  {
+    "id": 2,
+    "author": "model",
+    "payload": {
+      "type": "generationTable",
+      "entries": [
+        {
+          "path": "components/Home.tsx",
+          "generationType": 1,
+          "isDone": true,
+          "description": "Add a premium animated dashboard welcome message with staggered text reveal and romantic glow effects.",
+          "diffs": [
+            {
+              "target": "",
+              "replacement": "\nimport React from 'react';\nimport { motion } from 'framer-motion';\nimport { VALENTINE_DAYS } from '../constants';\nimport { ValentineDay } from '../types';\nimport { Sparkles } from 'lucide-react';\n\ninterface HomeProps {\n  onStartBuilder: (day: ValentineDay) => void;\n  onViewPro: () => void;\n}\n\nconst DashboardWelcome: React.FC = () => {\n  const containerVariants = {\n    hidden: { opacity: 0 },\n    visible: {\n      opacity: 1,\n      transition: {\n        staggerChildren: 0.5,\n        delayChildren: 0.2,\n      },\n    },\n  };\n\n  const itemVariants = {\n    hidden: { opacity: 0, y: 15, filter: 'blur(10px)' },\n    visible: {\n      opacity: 1,\n      y: 0,\n      filter: 'blur(0px)',\n      transition: { duration: 1, ease: \"easeOut\" }\n    },\n  };\n\n  return (\n    <motion.div \n      variants={containerVariants}\n      initial=\"hidden\"\n      animate=\"visible\"\n      className=\"relative mb-20 p-10 md:p-16 rounded-[3rem] overflow-hidden bg-white/40 backdrop-blur-sm border border-pink-100/50 shadow-2xl shadow-pink-100/30 text-center\"\n    >\n      {/* Premium Background Glows */}\n      <div className=\"absolute -top-24 -left-24 w-64 h-64 bg-pink-200/20 rounded-full blur-3xl animate-pulse\" />\n      <div className=\"absolute -bottom-24 -right-24 w-64 h-64 bg-rose-200/20 rounded-full blur-3xl animate-pulse\" style={{ animationDelay: '1s' }} />\n      \n      <div className=\"relative z-10 space-y-4\">\n        <motion.div \n          variants={itemVariants}\n          className=\"flex items-center justify-center gap-2 mb-2\"\n        >\n          <Sparkles className=\"w-5 h-5 text-pink-400 animate-spin-slow\" />\n          <h2 className=\"text-xl md:text-2xl font-bold text-gray-800 font-quicksand\">\n            Hey love creator 💕\n          </h2>\n          <Sparkles className=\"w-5 h-5 text-pink-400 animate-spin-slow\" />\n        </motion.div>\n\n        <motion.p \n          variants={itemVariants}\n          className=\"text-2xl md:text-4xl font-bold bg-gradient-to-r from-gray-800 via-pink-600 to-gray-800 bg-clip-text text-transparent leading-tight\"\n        >\n          Your feelings deserve more than just words.\n        </motion.p>\n\n        <motion.p \n          variants={itemVariants}\n          className=\"text-lg md:text-xl text-pink-400 font-semibold italic tracking-wide\"\n        >\n          Let’s turn them into a beautiful memory.\n        </motion.p>\n      </div>\n\n      {/* Subtle animated border line */}\n      <motion.div \n        className=\"absolute bottom-0 left-0 h-1 bg-gradient-to-r from-transparent via-pink-300 to-transparent w-full\"\n        initial={{ scaleX: 0 }}\n        animate={{ scaleX: 1 }}\n        transition={{ duration: 2, delay: 1.5 }}\n      />\n    </motion.div>\n  );\n};\n\nconst Home: React.FC<HomeProps> = ({ onStartBuilder, onViewPro }) => {\n  return (\n    <div className=\"pt-24 pb-20 px-6 max-w-6xl mx-auto relative z-10\">\n      {/* Hero Section */}\n      <section className=\"text-center mb-24\">\n        <motion.h1 \n          className=\"text-4xl md:text-6xl font-bold text-gray-800 mb-6 leading-tight\"\n          initial={{ opacity: 0, y: 20 }}\n          animate={{ opacity: 1, y: 0 }}\n          transition={{ duration: 0.8 }}\n        >\n          Create cute Valentine pages that <br />\n          <span className=\"text-pink-400\">speak from the heart 💕</span>\n        </motion.h1>\n        <motion.p \n          className=\"text-lg text-gray-500 mb-10 max-w-2xl mx-auto\"\n          initial={{ opacity: 0 }}\n          animate={{ opacity: 1 }}\n          transition={{ delay: 0.3, duration: 0.8 }}\n        >\n          Templates, gifts & effects to make every Valentine moment unforgettable.\n          Handwritten letters, reimagined for the digital era.\n        </motion.p>\n        <div className=\"flex flex-col sm:flex-row items-center justify-center gap-4\">\n          <motion.button \n            onClick={() => onStartBuilder('Valentine’s Day')}\n            className=\"px-8 py-4 bg-pink-400 text-white rounded-2xl font-bold text-lg shadow-lg shadow-pink-200 hover:bg-pink-500 transition-all hover:scale-105 active:scale-95\"\n            whileHover={{ scale: 1.05 }}\n            whileTap={{ scale: 0.95 }}\n          >\n            Create Valentine Page\n          </motion.button>\n          <button \n            onClick={onViewPro}\n            className=\"px-8 py-4 bg-white text-gray-600 border border-gray-100 rounded-2xl font-bold text-lg hover:bg-gray-50 transition-all\"\n          >\n            Buy Valentine PRO\n          </button>\n        </div>\n      </section>\n\n      {/* New Dashboard Message Section */}\n      <DashboardWelcome />\n\n      {/* Grid of Days */}\n      <section>\n        <h2 className=\"text-2xl font-bold text-gray-800 mb-8 text-center font-quicksand\">Choose a Day</h2>\n        <div className=\"grid grid-cols-2 md:grid-cols-4 gap-6\">\n          {VALENTINE_DAYS.map((day, idx) => (\n            <motion.div\n              key={day.name}\n              className=\"bg-white p-6 rounded-[2rem] shadow-sm border border-gray-50 flex flex-col items-center gap-4 cursor-pointer hover:shadow-xl hover:shadow-pink-100 transition-all group\"\n              whileHover={{ y: -5, rotate: idx % 2 === 0 ? 1 : -1 }}\n              onClick={() => onStartBuilder(day.name)}\n              initial={{ opacity: 0, scale: 0.9 }}\n              animate={{ opacity: 1, scale: 1 }}\n              transition={{ delay: 0.1 * idx }}\n            >\n              <div \n                className=\"w-16 h-16 rounded-3xl flex items-center justify-center text-pink-400 group-hover:scale-110 transition-transform\"\n                style={{ backgroundColor: day.color }}\n              >\n                {day.icon}\n              </div>\n              <span className=\"font-bold text-gray-700 text-center\">{day.name}</span>\n            </motion.div>\n          ))}\n        </div>\n      </section>\n    </div>\n  );\n};\n\nexport default Home;\n"
+            }
+          ]
+        },
+        {
+          "path": "index.html",
+          "generationType": 1,
+          "isDone": true,
+          "description": "Add a custom animation class for the slow-spinning sparkles.",
+          "diffs": [
+            {
+              "target": "",
+              "replacement": "\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Lovia | Speak from the Heart</title>\n  <script src=\"https://cdn.tailwindcss.com\"></script>\n  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n  <link href=\"https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@500;600;700&family=Quicksand:wght@500;600;700&display=swap\" rel=\"stylesheet\">\n  <style>\n    body {\n      background-color: #FFFDF9; /* Milk White / Cream */\n      color: #4A4A4A; /* Soft Dark Gray */\n      margin: 0;\n      overflow-x: hidden;\n      font-family: 'Nunito', sans-serif;\n    }\n    h1, h2, h3, h4 {\n      font-family: 'Poppins', sans-serif;\n    }\n    /* Custom scrollbar for aesthetic */\n    ::-webkit-scrollbar {\n      width: 6px;\n    }\n    ::-webkit-scrollbar-track {\n      background: #f1f1f1;\n    }\n    ::-webkit-scrollbar-thumb {\n      background: #FFD1DC;\n      border-radius: 10px;\n    }\n    ::-webkit-scrollbar-thumb:hover {\n      background: #FFB7C5;\n    }\n    @keyframes spin-slow {\n      from { transform: rotate(0deg); }\n      to { transform: rotate(360deg); }\n    }\n    .animate-spin-slow {\n      animation: spin-slow 8s linear infinite;\n    }\n  </style>\n<script type=\"importmap\">\n{\n  \"imports\": {\n    \"react/\": \"https://esm.sh/react@^19.2.4/\",\n    \"react\": \"https://esm.sh/react@^19.2.4\",\n    \"react-dom/\": \"https://esm.sh/react-dom@^19.2.4/\",\n    \"lucide-react\": \"https://esm.sh/lucide-react@^0.563.0\",\n    \"@google/genai\": \"https://esm.sh/@google/genai@^1.39.0\",\n    \"framer-motion\": \"https://esm.sh/framer-motion@^12.30.0\"\n  }\n}\n</script>\n</head>\n<body>\n  <div id=\"root\"></div>\n  <script type=\"module\" src=\"/index.tsx\"></script>\n</body>\n</html>\n"
+            }
+          ]
+        }
+      ]
+    },
+    "createdTimestamp": {
+      "seconds": 1770111138,
+      "nanos": 487000000
+    },
+    "doneTimestamp": {
+      "seconds": 1770111148,
+      "nanos": 462000000
+    }
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "name": "Lovia - Valentine's Day Expresser",
+  "description": "An emotional experience medium to create cute, cinematic Valentine pages that speak from the heart.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": []
+}
