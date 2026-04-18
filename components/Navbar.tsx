@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ onLogin, onLogout, onPro, onHome }) => 
     <motion.nav 
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as any }}
       className="fixed top-6 left-1/2 -translate-x-1/2 w-[94%] max-w-5xl h-20 glass-card z-[100] rounded-[2.5rem] flex items-center justify-between px-8"
     >
       <div 

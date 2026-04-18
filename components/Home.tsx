@@ -27,7 +27,7 @@ export const DashboardWelcome: React.FC = () => {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as any }}
       className="relative mt-40 mb-24 px-10 py-20 max-w-4xl mx-auto text-center overflow-hidden rounded-[4rem] glass-card"
     >
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -112,7 +112,7 @@ const Home: React.FC<HomeProps> = ({ onStartBuilder, onViewPro }) => {
       opacity: 1, 
       y: 0, 
       scale: 1,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as any } 
     }
   };
 
@@ -134,7 +134,7 @@ const Home: React.FC<HomeProps> = ({ onStartBuilder, onViewPro }) => {
           className="text-6xl md:text-8xl lg:text-9xl font-bold text-gray-800 mb-10 leading-[1] tracking-tighter"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as any }}
         >
           Love, <br />
           <span className="text-gradient font-romantic drop-shadow-sm px-4">reimagined.</span>

@@ -31,7 +31,6 @@ const EmotionAnimation: React.FC<EmotionAnimationProps> = ({ day, message, isPro
       <Lottie
         animationData={animationData}
         loop={true}
-        speed={speed}
         style={{ width: '100%', height: '100%' }}
       />
     </div>
