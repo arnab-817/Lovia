@@ -1,12 +1,5 @@
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { 
-  onAuthStateChanged, 
-  signInWithPopup, 
-  signOut, 
-  User 
-} from 'firebase/auth';
-import { auth, googleProvider } from '../firebase';
 import { UserProfile } from '../types';
 
 interface AuthContextType {
@@ -23,49 +16,38 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      if (firebaseUser) {
-        // Map Firebase user to our UserProfile
-        const profile: UserProfile = {
-          id: firebaseUser.uid,
-          name: firebaseUser.displayName || 'Anonymous',
-          email: firebaseUser.email || '',
-          avatar: firebaseUser.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${firebaseUser.uid}`,
-          isPro: false // Default to false, could be fetched from Firestore if needed
-        };
-        setUser(profile);
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
+    // Simulate auth check from localStorage for demo mode
+    const savedUser = localStorage.getItem('lovia_demo_user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+    setLoading(false);
   }, []);
 
   const login = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
-    } catch (error: any) {
-      if (error.code === 'auth/popup-blocked') {
-        alert('Please allow popups for this site to sign in with Google.');
-      } else if (error.code === 'auth/unauthorized-domain') {
-        alert('This domain is not authorized for Google Sign-In. Please check your Firebase console.');
-      } else if (error.code !== 'auth/popup-closed-by-user') {
-        alert('An unexpected error occurred during login. Please try again.');
-        console.error('Login failed:', error);
-      }
-      throw error;
-    }
+    setLoading(true);
+    // Simulate network delay for premium feel
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    const demoUser: UserProfile = {
+      id: 'demo-' + Math.random().toString(36).substr(2, 9),
+      name: 'Lovely Creator',
+      email: 'demo@lovia.app',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=romantic',
+      isPro: false
+    };
+
+    setUser(demoUser);
+    localStorage.setItem('lovia_demo_user', JSON.stringify(demoUser));
+    setLoading(false);
   };
 
   const logout = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error('Logout failed:', error);
-      throw error;
-    }
+    setLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    setUser(null);
+    localStorage.removeItem('lovia_demo_user');
+    setLoading(false);
   };
 
   return (
