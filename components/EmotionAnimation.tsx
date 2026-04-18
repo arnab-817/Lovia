@@ -16,8 +16,6 @@ const EmotionAnimation: React.FC<EmotionAnimationProps> = ({ day, message, isPro
   const analysis = useMemo(() => analyzeEmotion(message), [message]);
   const animationData = useMemo(() => getAnimationData(day, analysis.mood), [day, analysis.mood]);
 
-  const speed = isPro ? (analysis.intensity === 'high' ? 1.5 : 1) : 0.8;
-
   if (!animationData) {
     return (
       <div className={`animation-wrapper ${className} flex items-center justify-center opacity-20`}>
